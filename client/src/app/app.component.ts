@@ -52,7 +52,7 @@ export class AppComponent implements OnInit {
       },
       error: () => {
         // Si no existe endpoint, usar valores por defecto
-        this.whatsappNumber = '573508045496';
+        this.whatsappNumber = '573028426831';
         this.facebookUrl = '#';
         this.instagramUrl = '#';
         this.whatsappUrl = '#';
