@@ -1,7 +1,9 @@
+// ...existing code...
 
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { ReservaDialogComponent } from './reserva-dialog.component';
 
 @Component({
@@ -10,8 +12,17 @@ import { ReservaDialogComponent } from './reserva-dialog.component';
   // styleUrls eliminado para migrar a Tailwind CSS
 })
 export class AppComponent implements OnInit {
-    showAddAlert = false;
-    lastAdded: number | null = null;
+      // ...existing code...
+
+      getEstadoClase(estado: string): 'disponible' | 'reservado' | 'vendido' {
+        if (estado === 'disponible') return 'disponible';
+        if (estado === 'reservado') return 'reservado';
+        if (estado === 'vendido') return 'vendido';
+        return 'disponible';
+      }
+
+  showAddAlert = false;
+  lastAdded: number | null = null;
   title = 'Rifa Proxxxxx BMX';
   numeros: { numero: number; estado: string }[] = [];
   seleccionados: number[] = [];
@@ -20,7 +31,15 @@ export class AppComponent implements OnInit {
   instagramUrl: string = '';
   whatsappUrl: string = '';
 
-  constructor(private http: HttpClient, private dialog: MatDialog) {}
+  constructor(
+    private http: HttpClient,
+    private dialog: MatDialog,
+    public router: Router
+  ) {}
+
+  irAdmin() {
+    this.router.navigate(['/admin-login']);
+  }
 
   ngOnInit() {
     this.cargarNumeros();
@@ -52,7 +71,6 @@ export class AppComponent implements OnInit {
       },
       error: () => {
         // Si no existe endpoint, usar valores por defecto
-        this.whatsappNumber = '573028426831';
         this.facebookUrl = '#';
         this.instagramUrl = '#';
         this.whatsappUrl = '#';
@@ -127,9 +145,5 @@ export class AppComponent implements OnInit {
     window.location.href = url;
   }
 
-  getEstadoClase(estado: string): 'disponible' | 'reservado' | 'vendido' {
-    if (estado === 'disponible') return 'disponible';
-    if (estado === 'reservado') return 'reservado';
-    return 'vendido';
-  }
+// ...existing code...
 }

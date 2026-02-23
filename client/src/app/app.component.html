@@ -1,89 +1,97 @@
 
-<div class="background-bmx"></div>
-<div class="min-h-screen bg-gradient-to-br from-fuchsia-50 to-purple-100 font-sans flex flex-col" style="position: relative; z-index: 1;">
-  <!-- Header -->
-  <header class="flex items-center justify-center gap-8 bg-gradient-to-r from-purple-600 via-purple-400 to-purple-700 py-6 px-2 rounded-b-2xl shadow-lg shadow-purple-500/20">
-    <img src="assets/bmx-left.png" alt="BMX Izquierda" class="h-24 w-auto drop-shadow-2xl" />
-    <h1 class="text-white text-xl md:text-2xl font-extrabold tracking-wide drop-shadow-lg">Rifa Alma por su nueva BICI BMX</h1>
-    <img src="assets/imgalma.jpeg" alt="BMX Derecha" class="h-24 w-auto drop-shadow-2xl rounded-full" />
-  </header>
-      <div class="flex flex-col items-center justify-center my-4">
-        <span class="font-bold text-lg tracking-wide text-center mb-1">🎁 Premio: $200.000 en efectivo</span>
-        <span class="font-bold text-lg tracking-wide text-center">💰 Valor de la boleta: $20.000</span>
-      </div>
-      <!-- Sección de fecha de sorteo y modalidad -->
-      <div class="flex flex-col items-center justify-center mb-4">
-        <span class="font-semibold text-base text-center text-purple-700">📅 Fecha de sorteo: 31 de marzo de 2026</span>
-        <span class="font-semibold text-base text-center text-purple-700">🎲 Modalidad: Sorteo Virtual</span>
-      </div>
-  <main class="flex-1 w-full max-w-5xl mx-auto px-2 py-6 flex flex-col md:flex-row gap-8">
- 
-    <section class="flex-1">
-      <!-- Grid de números -->
-      <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-3 p-2">
-      
-        <app-numero-boton
-          *ngFor="let n of numeros"
-          [numero]="n.numero"
-          [estado]="getEstadoClase(n.estado)"
-          [ngClass]="{ 'scale-105 ring-4 ring-cyan-400': seleccionados.includes(n.numero) }"
-          (reservar)="reservarNumero(n.numero)"
-        >
-        </app-numero-boton>
-      </div>
-      <!-- Alerta -->
-      <div *ngIf="showAddAlert" class="fixed top-4 right-4 z-50 bg-gradient-to-r from-purple-400 to-purple-700 text-white px-6 py-3 rounded-xl shadow-lg font-bold animate-bounceIn">
-        ¡Añadiste el número <b>{{lastAdded}}</b> al carrito!, en la parte inferior puedes confirmar tu compra.
-      </div>
-      <!-- Carrito -->
-      <div class="bg-white rounded-2xl shadow-lg p-6 mt-6 w-full max-w-md mx-auto">
-        <h4 class="text-purple-700 font-bold text-lg mb-3">Números seleccionados</h4>
-        <div *ngIf="seleccionados.length > 0; else noSel">
-          <span *ngFor="let num of seleccionados" class="inline-block bg-purple-200 text-purple-900 font-bold rounded-lg px-3 py-1 mr-2 mb-2 shadow">{{num}}</span>
+<ng-container *ngIf="router.url === '/'">
+  <div class="background-bmx"></div>
+  <div class="min-h-screen bg-gradient-to-br from-fuchsia-50 to-purple-100 font-sans flex flex-col" style="position: relative; z-index: 1;">
+    <!-- Header -->
+    <header class="flex items-center justify-center gap-8 bg-gradient-to-r from-purple-600 via-purple-400 to-purple-700 py-6 px-2 rounded-b-2xl shadow-lg shadow-purple-500/20">
+      <img src="assets/bmx-left.png" alt="BMX Izquierda" class="h-24 w-auto drop-shadow-2xl" />
+      <h1 class="text-white text-xl md:text-2xl font-extrabold tracking-wide drop-shadow-lg">Rifa Alma por su nueva BICI BMX</h1>
+      <img src="assets/imgalma.jpeg" alt="BMX Derecha" class="h-24 w-auto drop-shadow-2xl rounded-full" />
+    </header>
+        <div class="flex flex-col items-center justify-center my-4">
+          <span class="font-bold text-lg tracking-wide text-center mb-1">🎁 Premio: $300.000 en efectivo</span>
+          <span class="font-bold text-lg tracking-wide text-center">💰 Valor de la boleta: $20.000</span>
         </div>
-        <ng-template #noSel>
-          <span class="text-red-500 font-semibold">No has seleccionado ningún número</span>
-        </ng-template>
-        <button (click)="reservarSeleccionados()" [disabled]="seleccionados.length === 0"
-          class="w-full mt-4 py-3 bg-gradient-to-r from-purple-500 to-purple-700 text-white font-bold rounded-xl shadow-lg shadow-purple-500/20 transition-all duration-200 hover:scale-105 hover:from-purple-400 hover:to-purple-600 focus:outline-none focus:ring-4 focus:ring-cyan-400 disabled:opacity-50">
-          Reservar seleccionados
+        <!-- Sección de fecha de sorteo y modalidad -->
+        <div class="flex flex-col items-center justify-center mb-4">
+          <span class="font-semibold text-base text-center text-purple-700">📅 Fecha de sorteo: 31 de marzo de 2026</span>
+          <span class="font-semibold text-base text-center text-purple-700">🎲 Modalidad: Sorteo Virtual</span>
+        </div>
+    <main class="flex-1 w-full max-w-5xl mx-auto px-2 py-6 flex flex-col md:flex-row gap-8">
+  
+      <section class="flex-1">
+        <!-- Grid de números -->
+        <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-3 p-2">
+        
+          <app-numero-boton
+            *ngFor="let n of numeros"
+            [numero]="n.numero"
+            [estado]="getEstadoClase(n.estado)"
+            [ngClass]="{ 'scale-105 ring-4 ring-cyan-400': seleccionados.includes(n.numero) }"
+            (reservar)="reservarNumero(n.numero)"
+          >
+          </app-numero-boton>
+        </div>
+        <!-- Alerta -->
+        <div *ngIf="showAddAlert" class="fixed top-4 right-4 z-50 bg-gradient-to-r from-purple-400 to-purple-700 text-white px-6 py-3 rounded-xl shadow-lg font-bold animate-bounceIn">
+          ¡Añadiste el número <b>{{lastAdded}}</b> al carrito!, en la parte inferior puedes confirmar tu compra.
+        </div>
+        <!-- Carrito -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 mt-6 w-full max-w-md mx-auto">
+          <h4 class="text-purple-700 font-bold text-lg mb-3">Números seleccionados</h4>
+          <div *ngIf="seleccionados.length > 0; else noSel">
+            <span *ngFor="let num of seleccionados" class="inline-block bg-purple-200 text-purple-900 font-bold rounded-lg px-3 py-1 mr-2 mb-2 shadow">{{num}}</span>
+          </div>
+          <ng-template #noSel>
+            <span class="text-red-500 font-semibold">No has seleccionado ningún número</span>
+          </ng-template>
+          <button (click)="reservarSeleccionados()" [disabled]="seleccionados.length === 0"
+            class="w-full mt-4 py-3 bg-gradient-to-r from-purple-500 to-purple-700 text-white font-bold rounded-xl shadow-lg shadow-purple-500/20 transition-all duration-200 hover:scale-105 hover:from-purple-400 hover:to-purple-600 focus:outline-none focus:ring-4 focus:ring-cyan-400 disabled:opacity-50">
+            Reservar seleccionados
+          </button>
+        </div>
+      </section>
+      <!-- Leyenda de colores -->
+      <aside class="bg-white/80 backdrop-blur rounded-2xl shadow-lg p-5 text-gray-800 w-full max-w-xs mx-auto mt-6">
+        <h3 class="font-bold text-lg mb-4 text-purple-700">Significado de colores</h3>
+        <ul class="space-y-3">
+          <li class="flex items-center gap-3">
+            <span class="inline-block w-6 h-6 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 ring-2 ring-purple-400 shadow"></span>
+            <span class="font-medium">Disponible</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="inline-block w-6 h-6 rounded-full bg-gradient-to-br from-purple-200 to-purple-400 ring-2 ring-purple-200 shadow"></span>
+            <span class="font-medium">Reservado</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="inline-block w-6 h-6 rounded-full bg-gradient-to-br from-red-500 to-purple-900 ring-2 ring-red-400 shadow"></span>
+            <span class="font-medium">Vendido</span>
+          </li>
+        </ul>
+      </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-purple-600 via-purple-400 to-purple-700 text-white py-5 px-4 flex flex-col md:flex-row items-center justify-between rounded-t-2xl shadow-lg shadow-purple-500/20 mt-8">
+      <span class="font-bold text-lg tracking-wide mb-2 md:mb-0">🎁 Premio: $300.000 en efectivo
+  💰 Valor de la boleta: $20.000</span>
+      <div class="flex gap-6">
+        <a [href]="facebookUrl" target="_blank" aria-label="Facebook">
+          <img src="assets/facebook.svg" alt="Facebook" class="w-8 h-8 drop-shadow-lg hover:scale-110 transition" />
+        </a>
+        <a [href]="instagramUrl" target="_blank" aria-label="Instagram">
+          <img src="assets/instagram.svg" alt="Instagram" class="w-8 h-8 drop-shadow-lg hover:scale-110 transition" />
+        </a>
+        <a [href]="whatsappUrl" target="_blank" aria-label="WhatsApp">
+          <img src="assets/whatsapp.svg" alt="WhatsApp" class="w-8 h-8 drop-shadow-lg hover:scale-110 transition" />
+        </a>
+        <button class="ml-4 px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-700 text-white font-bold rounded-xl shadow-lg hover:scale-105 transition-all" (click)="irAdmin()">
+          Módulo de administración
         </button>
       </div>
-    </section>
-    <!-- Leyenda de colores -->
-    <aside class="bg-white/80 backdrop-blur rounded-2xl shadow-lg p-5 text-gray-800 w-full max-w-xs mx-auto mt-6">
-      <h3 class="font-bold text-lg mb-4 text-purple-700">Significado de colores</h3>
-      <ul class="space-y-3">
-        <li class="flex items-center gap-3">
-          <span class="inline-block w-6 h-6 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 ring-2 ring-purple-400 shadow"></span>
-          <span class="font-medium">Disponible</span>
-        </li>
-        <li class="flex items-center gap-3">
-          <span class="inline-block w-6 h-6 rounded-full bg-gradient-to-br from-purple-200 to-purple-400 ring-2 ring-purple-200 shadow"></span>
-          <span class="font-medium">Reservado</span>
-        </li>
-        <li class="flex items-center gap-3">
-          <span class="inline-block w-6 h-6 rounded-full bg-gradient-to-br from-red-500 to-purple-900 ring-2 ring-red-400 shadow"></span>
-          <span class="font-medium">Vendido</span>
-        </li>
-      </ul>
-    </aside>
-  </main>
-
-  <!-- Footer -->
-  <footer class="bg-gradient-to-r from-purple-600 via-purple-400 to-purple-700 text-white py-5 px-4 flex flex-col md:flex-row items-center justify-between rounded-t-2xl shadow-lg shadow-purple-500/20 mt-8">
-    <span class="font-bold text-lg tracking-wide mb-2 md:mb-0">🎁 Premio: $200.000 en efectivo
-💰 Valor de la boleta: $20.000</span>
-    <div class="flex gap-6">
-      <a [href]="facebookUrl" target="_blank" aria-label="Facebook">
-        <img src="assets/facebook.svg" alt="Facebook" class="w-8 h-8 drop-shadow-lg hover:scale-110 transition" />
-      </a>
-      <a [href]="instagramUrl" target="_blank" aria-label="Instagram">
-        <img src="assets/instagram.svg" alt="Instagram" class="w-8 h-8 drop-shadow-lg hover:scale-110 transition" />
-      </a>
-      <a [href]="whatsappUrl" target="_blank" aria-label="WhatsApp">
-        <img src="assets/whatsapp.svg" alt="WhatsApp" class="w-8 h-8 drop-shadow-lg hover:scale-110 transition" />
-      </a>
-    </div>
-  </footer>
-</div>
+    </footer>
+  </div>
+</ng-container>
+<ng-container *ngIf="router.url !== '/'">
+  <router-outlet></router-outlet>
+</ng-container>

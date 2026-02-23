@@ -1,0 +1,48 @@
+<div class="admin-container min-h-screen bg-gradient-to-br from-purple-100 to-fuchsia-100 flex flex-col items-center py-8">
+  <h2 class="text-2xl font-bold text-purple-700 mb-6">Administración de Números</h2>
+  <!-- Contador de estados -->
+  <div class="flex gap-6 mb-6">
+    <div class="bg-white rounded-xl shadow px-4 py-2 flex flex-col items-center">
+      <span class="font-bold text-purple-700">Disponible</span>
+      <span class="text-2xl">{{contarPorEstado('disponible')}}</span>
+    </div>
+    <div class="bg-white rounded-xl shadow px-4 py-2 flex flex-col items-center">
+      <span class="font-bold text-yellow-700">Reservado</span>
+      <span class="text-2xl">{{contarPorEstado('reservado')}}</span>
+    </div>
+    <div class="bg-white rounded-xl shadow px-4 py-2 flex flex-col items-center">
+      <span class="font-bold text-red-700">Vendido</span>
+      <span class="text-2xl">{{contarPorEstado('vendido')}}</span>
+    </div>
+  </div>
+  <table class="w-full max-w-2xl bg-white rounded-2xl shadow-lg">
+    <thead>
+      <tr>
+        <th class="py-2 px-4 text-left">Número</th>
+        <th class="py-2 px-4 text-left">Nombre</th>
+        <th class="py-2 px-4 text-left">Teléfono</th>
+        <th class="py-2 px-4 text-left">Estado actual</th>
+        <th class="py-2 px-4 text-left">Cambiar Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let n of numeros">
+        <td class="py-2 px-4">{{n.numero}}</td>
+        <td class="py-2 px-4">{{n.nombre || '-'}}</td>
+        <td class="py-2 px-4">{{n.telefono || '-'}}</td>
+        <td class="py-2 px-4">{{n.estado}}</td>
+        <td class="py-2 px-4 flex items-center">
+          <select #select [value]="n.estado" class="border rounded-lg px-2 py-1 mr-2">
+            <option *ngFor="let estado of estados" [value]="estado.toLowerCase()">{{estado}}</option>
+          </select>
+          <button 
+            (click)="cambiarEstado(n.numero, select.value)" 
+            [disabled]="select.value === n.estado"
+            class="bg-purple-600 text-white px-3 py-1 rounded-lg hover:bg-purple-700 transition disabled:opacity-50">
+            Cambiar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

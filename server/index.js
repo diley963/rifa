@@ -1,3 +1,9 @@
+
+// ...existing code...
+// ...existing code...
+// ...existing code...
+// ...existing code...
+// ...existing code...
 // server/index.js
 // Backend Express para la rifa BMX
 // Código comentado para principiantes
@@ -30,7 +36,7 @@ app.use(express.static(path.join(__dirname, '../dist/client')));
 // GET /api/numeros - Lista todos los números y su estado
 app.get('/api/numeros', async (req, res) => {
   try {
-    const result = await pool.query('SELECT numero, estado FROM numeros_rifa ORDER BY numero');
+    const result = await pool.query('SELECT numero, estado, nombre, telefono FROM numeros_rifa ORDER BY numero');
     res.json(result.rows);
   } catch (err) {
     res.status(500).json({ error: 'Error al obtener los números' });
@@ -122,6 +128,28 @@ app.post('/api/vender/:numero', async (req, res) => {
   } catch (err) {
     await pool.query('ROLLBACK');
     res.status(500).json({ error: 'Error al marcar como vendido' });
+  }
+});
+
+// Cambiar el estado de un número
+app.post('/api/cambiar-estado', async (req, res) => {
+  const { numero, estado } = req.body;
+  if (!numero || !estado) {
+    return res.status(400).json({ error: 'Faltan datos' });
+  }
+  try {
+    await pool.query('BEGIN');
+    const { rows } = await pool.query('SELECT * FROM numeros_rifa WHERE numero = $1 FOR UPDATE', [numero]);
+    if (!rows.length) {
+      await pool.query('ROLLBACK');
+      return res.status(404).json({ error: 'Número no encontrado' });
+    }
+    await pool.query('UPDATE numeros_rifa SET estado = $1 WHERE numero = $2', [estado.toLowerCase(), numero]);
+    await pool.query('COMMIT');
+    res.json({ success: true });
+  } catch (err) {
+    await pool.query('ROLLBACK');
+    res.status(500).json({ error: 'Error al cambiar el estado' });
   }
 });
 
