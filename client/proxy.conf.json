@@ -1,0 +1,10 @@
+// client/proxy.conf.json
+// Proxy para desarrollo: redirige /api al backend Express
+{
+  "/api": {
+    "target": "http://localhost:3000",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

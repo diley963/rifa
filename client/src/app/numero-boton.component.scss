@@ -1,0 +1,46 @@
+// Colores de la paleta
+$violeta-main: #7c3aed;
+$violeta-dark: #5b21b6;
+$violeta-light: #a78bfa;
+$rojo-vendido: #b91c1c;
+$blanco: #fff;
+
+.numero-boton {
+  width: 100%;
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.15rem;
+  border-radius: 9999px;
+  transition: all 0.2s;
+  user-select: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #7c3aed22;
+  border: none;
+  outline: none;
+  &.disponible {
+    background: linear-gradient(135deg, $violeta-main 60%, $violeta-light 100%);
+    color: $blanco;
+    box-shadow: 0 2px 12px #a78bfa33;
+    &:hover, &:focus {
+      filter: brightness(1.08) drop-shadow(0 0 8px $violeta-light);
+      transform: scale(1.08);
+    }
+  }
+  &.reservado {
+    background: linear-gradient(135deg, $violeta-light 60%, $violeta-main 100%);
+    color: $violeta-dark;
+    opacity: 0.7;
+    cursor: not-allowed;
+    text-decoration: none;
+  }
+  &.vendido {
+    background: linear-gradient(135deg, $rojo-vendido 40%, $violeta-dark 100%);
+    color: $blanco;
+    opacity: 0.5;
+    cursor: not-allowed;
+    text-decoration: line-through;
+  }
+}
