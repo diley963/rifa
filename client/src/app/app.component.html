@@ -7,11 +7,16 @@
     <h1 class="text-white text-xl md:text-2xl font-extrabold tracking-wide drop-shadow-lg">Rifa Alma por su nueva BICI BMX</h1>
     <img src="assets/imgalma.jpeg" alt="BMX Derecha" class="h-24 w-auto drop-shadow-2xl rounded-full" />
   </header>
-
+      <div class="flex flex-col items-center justify-center my-4">
+        <span class="font-bold text-lg tracking-wide text-center mb-1">🎁 Premio: $200.000 en efectivo</span>
+        <span class="font-bold text-lg tracking-wide text-center">💰 Valor de la boleta: $20.000</span>
+      </div>
   <main class="flex-1 w-full max-w-5xl mx-auto px-2 py-6 flex flex-col md:flex-row gap-8">
+ 
     <section class="flex-1">
       <!-- Grid de números -->
       <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-3 p-2">
+      
         <app-numero-boton
           *ngFor="let n of numeros"
           [numero]="n.numero"
@@ -62,7 +67,8 @@
 
   <!-- Footer -->
   <footer class="bg-gradient-to-r from-purple-600 via-purple-400 to-purple-700 text-white py-5 px-4 flex flex-col md:flex-row items-center justify-between rounded-t-2xl shadow-lg shadow-purple-500/20 mt-8">
-    <span class="font-bold text-lg tracking-wide mb-2 md:mb-0">Gracias por su apoyo</span>
+    <span class="font-bold text-lg tracking-wide mb-2 md:mb-0">🎁 Premio: $200.000 en efectivo
+💰 Valor de la boleta: $20.000</span>
     <div class="flex gap-6">
       <a [href]="facebookUrl" target="_blank" aria-label="Facebook">
         <img src="assets/facebook.svg" alt="Facebook" class="w-8 h-8 drop-shadow-lg hover:scale-110 transition" />
