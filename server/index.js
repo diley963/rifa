@@ -24,8 +24,8 @@ const pool = new Pool({
   ssl: process.env.DATABASE_URL && process.env.DATABASE_URL.includes('railway') ? { rejectUnauthorized: false } : false
 });
 
-// Servir Angular compilado (dist)
-app.use(express.static(path.join(__dirname, '../dist')));
+// Servir Angular compilado (dist/client)
+app.use(express.static(path.join(__dirname, '../dist/client')));
 
 // GET /api/numeros - Lista todos los números y su estado
 app.get('/api/numeros', async (req, res) => {
@@ -127,7 +127,7 @@ app.post('/api/vender/:numero', async (req, res) => {
 
 // Fallback: servir index.html de Angular para rutas no API
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../dist/index.html'));
+  res.sendFile(path.join(__dirname, '../dist/client/index.html'));
 });
 
 // Iniciar servidor
